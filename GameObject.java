@@ -25,7 +25,11 @@ public class GameObject {
   public JLabel getImage() { return image;}
   public boolean collision(GameObject g) {
     boolean intersects = false;
-    if ((g.getImage().getBounds()).intersects((this.getImage().getBounds())) && this.getClass() == Pipe.class) {     // checks to see if the two labels intersect
+    if ((g.getImage().getBounds()).intersects((this.getImage().getBounds())) && this.getClass() == TopPipe.class) {     // checks to see if the two labels intersect
+      intersects = true;
+      GameOver();
+    }
+    else if ((g.getImage().getBounds()).intersects((this.getImage().getBounds())) && this.getClass() == BottomPipe.class) {     // checks to see if the two labels intersect
       intersects = true;
       GameOver();
     }
@@ -39,15 +43,20 @@ public class GameObject {
 }
 class Bird extends GameObject implements KeyListener {
   private URL bird;
-  Toolkit tk = Toolkit.getDefaultToolkit();
-  bird = getClass().getResource("/resources/die_face_1_T.png");
-  Dice1img = tk.getImage(Dice1);
-  Dice1img = Dice1img.getScaledInstance(50,50,Image.SCALE_SMOOTH);
-  Dice1icon = new ImageIcon(Dice1img);
+  private Image birdimg;
+  private ImageIcon birdIcon;
+  private JLabel birdLabel;
   //image = resource to add image to label
    boolean goingDown = true;
-  Bird( int difficulty) {
-   // image = bird;
+  Bird(int difficulty) {
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    bird = getClass().getResource("/resources/Bird2-1.png.png");
+    birdimg = tk.getImage(bird);
+    birdimg = birdimg.getScaledInstance(50,50,Image.SCALE_SMOOTH);
+    birdIcon = new ImageIcon(birdimg);
+    birdLabel = new JLabel(birdIcon);
+    image = birdLabel;
     vy = difficulty;
     vx = 1;  // how fast is this
   }
@@ -90,8 +99,40 @@ class scoreBox extends GameObject {
   }
 }
 
-class Pipe extends GameObject {
-  Pipe() {
+class TopPipe extends GameObject {
+  private URL topPipe;
+  private Image topPipeimg;
+  private ImageIcon topPipeIcon;
+  private JLabel topPipeLabel;
+
+  TopPipe() {
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    topPipe = getClass().getResource("/resources/pipe_down.png");
+    topPipeimg = tk.getImage(topPipe);
+    topPipeimg = topPipeimg.getScaledInstance(50,50,Image.SCALE_SMOOTH);
+    topPipeIcon = new ImageIcon(topPipeimg);
+    topPipeLabel = new JLabel(topPipeIcon);
+    image = topPipeLabel;
+    //image = resource to add image
+  }
+}
+
+class BottomPipe extends GameObject {
+  private URL bottomPipe;
+  private Image bottomPipeimg;
+  private ImageIcon bottomPipeIcon;
+  private JLabel bottomPipeLabel;
+
+  BottomPipe() {
+
+    Toolkit tk = Toolkit.getDefaultToolkit();
+    bottomPipe = getClass().getResource("/resources/pipe_up.png");
+    bottomPipeimg = tk.getImage(bottomPipe);
+    bottomPipeimg = bottomPipeimg.getScaledInstance(50,50,Image.SCALE_SMOOTH);
+    bottomPipeIcon = new ImageIcon(bottomPipeimg);
+    bottomPipeLabel = new JLabel(bottomPipeIcon);
+    image = bottomPipeLabel;
     //image = resource to add image
   }
 }
